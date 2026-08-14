@@ -14,11 +14,20 @@ function TeamSlot({ index, pokemon, onRemove }: TeamSlotProps) {
   });
 
   return (
-    <div ref={setNodeRef} className="pokemon-slot">
+    <div
+      ref={setNodeRef}
+      className={`flex h-44 w-36 items-center justify-center rounded-lg transition-colors ${
+        pokemon
+          ? ""
+          : isOver
+            ? "border-2 border-dashed border-amber-400 bg-amber-400/10"
+            : "border-2 border-dashed border-zinc-800 bg-zinc-900/40"
+      }`}
+    >
       {pokemon ? (
         <PokemonCard pokemon={pokemon} onRemove={onRemove} />
       ) : (
-        <span>Slot vazio</span>
+        <span className="text-xs text-zinc-600">Slot vazio</span>
       )}
     </div>
   );
