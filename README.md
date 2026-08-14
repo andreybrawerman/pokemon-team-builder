@@ -1,75 +1,45 @@
-# React + TypeScript + Vite
+# Pokémon Team Builder
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Monte seu time de Pokémon arrastando cards do inventário para os slots do time — ou clicando, se preferir. Um projeto de portfólio construído do zero para praticar fetch assíncrono, tipagem em TypeScript, gerenciamento de estado em React e drag-and-drop.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Inventário completo** — busca os 151 Pokémon da primeira geração via [PokéAPI](https://pokeapi.co/), com nome, sprite e tipos.
+- **Time de até 6 slots** — adicione Pokémon por clique ou arrastando; remova a qualquer momento.
+- **Drag-and-drop** — arraste um card do inventário direto para um slot do time, com feedback visual ao passar por cima de um slot vazio.
+- **Busca por nome** — filtra o inventário em tempo real.
+- **Filtro por tipo** — checkboxes para um ou mais tipos ao mesmo tempo (lógica "OU": mostra quem tem pelo menos um dos tipos marcados).
+- **Sem duplicação** — um Pokémon que já está no time some automaticamente do inventário.
 
-## React Compiler
+## Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vite.dev/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [@dnd-kit](https://dndkit.com/) — drag-and-drop
+- [PokéAPI](https://pokeapi.co/) — dados dos Pokémon
 
-## Expanding the ESLint configuration
+## Rodando localmente
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/SEU-USUARIO/pokemon-team-builder.git
+cd pokemon-team-builder
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Acesse `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Estrutura do projeto
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```
+src/
+├── components/
+│   ├── PokemonCard.tsx   # card individual, arrastável no inventário
+│   └── TeamSlot.tsx      # slot do time, área de soltar (droppable)
+├── services/
+│   └── PokemonList.ts    # fetch e transformação dos dados da PokéAPI
+├── types/
+│   └── pokemon.ts        # tipos TypeScript compartilhados
+└── App.tsx               # estado global, filtros e layout
 ```
